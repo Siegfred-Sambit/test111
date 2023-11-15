@@ -26,12 +26,12 @@ jobs:
       - name: checkout project
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: main
 
       - name: check branch
         if: ${{ github.event.inputs.git-ref }}
         run: |
-          echo "Allowed only on master branch"
+          echo "Allowed only on main branch"
           echo "Inputs : "
           echo " -> Branch: ${{ github.event.inputs.git-ref }}"
           exit 1
