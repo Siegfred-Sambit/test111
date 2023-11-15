@@ -1,4 +1,5 @@
 name: Manual Plan Deployment
+
 on: 
   workflow_dispatch:
     inputs:
@@ -10,18 +11,37 @@ on:
         options:
           - 'true'
           - 'false'
+
+      path:
+        description: 'pass the path to the terragrunt file'    
+        required: true
+        default: ''
+        type: string
+
 jobs:
-  deploy:
-    name: Deploy To Production
+  plan-apply:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Clone Repository (Latest)
-        uses: actions/checkout@v2
-        if: github.event.inputs.git-ref == ''
-      - name: Clone Repository (Custom Ref)
-        uses: actions/checkout@v2
-        if: github.event.inputs.git-ref != ''
+      - name: checkout project
+        uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.inputs.git-ref }}
-      - name: ...
-        run: ...
+          ref: master
+
+      - name: check branch
+        if: ${{ github.event.inputs.git-ref }}
+        run: |
+          echo "Allowed only on master branch"
+          echo "Inputs : "
+          echo " -> Branch: ${{ github.ref }}"
+          exit 1
+
+      - name: Execute the terraform-apply
+        if: ${{ inputs.action-apply == true }}
+        run:
+          terragrunt apply --auto-approve --terragrunt-working-dir ${{ inputs.path }}
+
+      - name: Execute the terraform-plan
+        if: ${{ inputs.path == false }}
+        run: 
+          terragrunt apply --auto-approve --terragrunt-working-dir ${{ inputs.path }}
