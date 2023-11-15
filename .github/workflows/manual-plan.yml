@@ -13,7 +13,7 @@ on:
           - 'false'
 
       path:
-        description: 'pass the path to the terragrunt file'    
+        description: 'Pass the path to the terragrunt file'    
         required: true
         default: ''
         type: string
@@ -25,16 +25,16 @@ jobs:
     steps:
       - name: checkout project
         uses: actions/checkout@v3
-        #with:
-          #ref: master
+        with:
+          ref: main
 
-      - name: check branch
-        if: ${{ github.event.inputs.git-ref }}
-        run: |
-          echo "Allowed only on master branch"
-          echo "Inputs : "
-          echo " -> Branch: ${{ github.ref }}"
-          exit 1
+      #- name: check branch
+        #if: ${{ github.event.inputs.git-ref }}
+        #run: |
+          #echo "Allowed only on main branch"
+          #echo "Inputs : "
+          #echo " -> Branch: ${{ github.ref }}"
+          #exit 1
 
       - name: Execute the terraform-apply
         if: ${{ inputs.action-apply == true }}
