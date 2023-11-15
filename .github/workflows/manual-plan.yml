@@ -28,13 +28,13 @@ jobs:
         with:
           ref: main
 
-      #- name: check branch
-        #if: ${{ github.event.inputs.git-ref }}
-        #run: |
-          #echo "Allowed only on main branch"
-          #echo "Inputs : "
-          #echo " -> Branch: ${{ github.ref }}"
-          #exit 1
+      - name: check branch
+        if: ${{ github.event.inputs.git-ref }}
+        run: |
+          echo "Allowed only on main branch"
+          echo "Inputs : "
+          echo " -> Branch: ${{ github.ref }}"
+          exit 1
 
       - name: Execute the terraform-apply
         if: ${{ inputs.action-apply == true }}
