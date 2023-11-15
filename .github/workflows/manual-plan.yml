@@ -1,0 +1,27 @@
+name: Manual Plan Deployment
+on: 
+  workflow_dispatch:
+    inputs:
+      action-apply:
+        description: 'Apply if true, Plan default'    
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+jobs:
+  deploy:
+    name: Deploy To Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository (Latest)
+        uses: actions/checkout@v2
+        if: github.event.inputs.git-ref == ''
+      - name: Clone Repository (Custom Ref)
+        uses: actions/checkout@v2
+        if: github.event.inputs.git-ref != ''
+        with:
+          ref: ${{ github.event.inputs.git-ref }}
+      - name: ...
+        run: ...
