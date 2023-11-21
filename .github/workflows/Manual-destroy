@@ -1,0 +1,49 @@
+name: Manual Destroy Workflow
+
+on: 
+  workflow_dispatch:
+    inputs:
+      action-apply:
+        description: 'Destroy if true, Plan default'    
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+      path:
+        description: 'pass the path to the terragrunt file'    
+        required: true
+        default: ''
+        type: string
+
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout project
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: check branch
+        #if: ${{ github.event.inputs.git-ref }}
+        if: ${{ inputs.action-apply == 'true' && github.ref != 'refs/heads/main' }}
+        run: |
+          echo "Allowed only on main branch"
+          echo "Inputs: "
+          echo " -> Branch: ${{ github.ref }}"
+          exit 1
+
+      - name: Execute the terraform-plan
+        if: ${{ inputs.action-apply == 'false' }}
+        run:
+          terragrunt plan -destroy --terragrunt-working-dir ${{ inputs.path }}
+
+      - name: Execute the terraform-destroy
+        if: ${{ inputs.action-apply == 'true' }}
+        run: 
+          terragrunt destroy --auto-approve --terragrunt-working-dir ${{ inputs.path }}
