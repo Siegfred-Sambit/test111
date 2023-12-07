@@ -1,0 +1,7 @@
+If you want to search and replace the pattern in the entire file, use the percentage character % as a range. 
+This character indicates a range from the first to the last line of the file:
+
+Sometimes Git can get really hosed up. 
+
+
+There’s the whole “rebase” thing, but that’s beyond the scope of this tutorial.
