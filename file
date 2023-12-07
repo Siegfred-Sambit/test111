@@ -5,26 +5,31 @@ This character indicates a range from the first to the last line of the file  :
 Sometimes Git can get really hosed up. 
 
 There’s the whole “rebase” thing, but that’s beyond the scope of this tutorial.
+
+
 By default, Git interprets these changes as line modifications, making it unable to automatically merge the files.
 
-"AWS": "arn:aws:iam::xxxxxxxxxxx:user/omkar"
+"AWS"    : "arn:aws:iam::xxxxxxxxxxx:user/omkar"
 
-"AWS"             : "arn:aws:iam::xxxxxxxxxxx:user/omkar"
-"AWS": "arn:aws:iam::xxxxxxxxxxx:user/omkar"     
+"AWS"      : "arn:aws:iam::xxxxxxxxxxx:user/omkar"
+"AWS"         : "arn:aws:iam::xxxxxxxxxxx:user/omkar"     
 
-"AWS": "arn:aws:iam::xxxxxxxxxxx:user/omkar"
+"AWS"   : "arn:aws:iam::xxxxxxxxxxx:user/omkar"
 
 
-export AWS_ACCESS_KEY_ID="<random-access-key-Id>"                                                                                     
+export AWS_ACCESS_KEY_ID="<random-access-key-Id>"   
+
+
+
 export AWS_SECRET_ACCESS_KEY="<random-secret-access-key>"
 export AWS_SESSION_TOKEN="<random-session-token>"
 
 {
    "Version": "2012-10-17",
-   "Statement": {
+   "Statement":      {
      "Effect": "Allow",
      "Action": "sts:AssumeRoleWithSAML",
      "Principal": {"Federated": "arn:aws:iam::account-id:saml-provider/PROVIDER-NAME"},
-     "Condition": {"StringEquals": {"SAML:aud": "https://signin.aws.amazon.com/saml"}}
+     "Condition"         : {"StringEquals": {"SAML:aud": "https://signin.aws.amazon.com/saml"}}
    }
  }
