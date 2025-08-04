@@ -1,0 +1,20 @@
+name: Test55
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  get-codespaces:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Get Org Members and list their Codespaces (admin-only)
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ORG_NAME: AITest-22
+          shell: bash
+
+        run: |
+          gh codespace list --org ORGANIZATION
+#         gh codespace list --org ORGANIZATION --user USER
