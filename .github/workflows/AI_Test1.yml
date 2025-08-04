@@ -3,24 +3,16 @@ name: Use GitHub CLI in Workflow
 on:
   workflow_dispatch:
 
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  get-codespaces:
     runs-on: ubuntu-latest
-    permissions: write-all
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Use gh CLI to list issues
-        run: gh issue list
+      - name: Call GitHub API to list Codespaces
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Use gh CLI to list issues
-        run: gh codespace list --org AITest-22
-        shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}  # Must be a PAT with codespace access
+        run: |
+          echo "Fetching Codespaces for authenticated user..."
+          curl -s -H "Authorization: token $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               https://api.github.com/Siegfred-Sambit/codespaces | jq
