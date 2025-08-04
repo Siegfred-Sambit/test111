@@ -8,11 +8,20 @@ jobs:
   get-codespaces:
     runs-on: ubuntu-latest
     steps:
-      - name: Call GitHub API to list Codespaces
+
+      - name: Get Org Members and list their Codespaces (admin-only)
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}  # Must be a PAT with codespace access
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ORG_NAME: AITest-22
         run: |
-          echo "Fetching Codespaces for authenticated user..."
-          curl -s -H "Authorization: token $GH_TOKEN" \
-               -H "Accept: application/vnd.github+json" \
-               https://api.github.com/Siegfred-Sambit/codespaces | jq
+          echo "Listing members of $ORG_NAME"
+          members=$(curl -s -H "Authorization: token $GH_TOKEN" \
+                        -H "Accept: application/vnd.github+json" \
+                        "https://api.github.com/orgs/$ORG_NAME/members" | jq -r '.[].login')
+          
+          for member in $members; do
+            echo "Attempting to fetch Codespaces for $member"
+            curl -s -H "Authorization: token $GH_TOKEN" \
+                 -H "Accept: application/vnd.github+json" \
+                 https://api.github.com/users/$member/codespaces | jq || echo "Failed for $member"
+          done
