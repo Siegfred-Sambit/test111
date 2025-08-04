@@ -9,11 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Get Org Members and list their Codespaces (admin-only)
+      - name: GitHub Organization & their Codespaces
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
           ORG_NAME: AITest-22
           shell: bash
+          
         run: |
           echo "Listing members of $ORG_NAME"
           members=$(curl -s -H "Authorization: token $GH_TOKEN" \
