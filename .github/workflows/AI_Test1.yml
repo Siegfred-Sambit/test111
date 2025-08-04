@@ -12,6 +12,7 @@ jobs:
       - name: Get Org Members and list their Codespaces (admin-only)
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
+          shell: bash
           ORG_NAME: AITest-22
         run: |
           echo "Listing members of $ORG_NAME"
