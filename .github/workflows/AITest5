@@ -16,4 +16,4 @@ jobs:
           shell: bash
         run: |
           gh codespace list --org ORGANIZATION
-          gh codespace list --org ORGANIZATION --user USER
+         # gh codespace list --org ORGANIZATION --user USER
