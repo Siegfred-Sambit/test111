@@ -1,20 +1,24 @@
-name: Test55
+name: AI56
 
 on:
   workflow_dispatch:
-
 
 jobs:
   get-codespaces:
     runs-on: ubuntu-latest
     steps:
+      - name: Call GitHub API to list Codespaces
 
-      - name: Get Org Members and list their Codespaces (admin-only)
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
-          ORG_NAME: AITest-22
+          ORG: AITest-22
           shell: bash
 
         run: |
-          gh codespace list --org AITest-22
-#         gh codespace list --org ORGANIZATION --user USER
+          echo "Fetching Codespaces for authenticated user...
+
+          curl -L \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              https://api.github.com/orgs/ORG/codespaces
