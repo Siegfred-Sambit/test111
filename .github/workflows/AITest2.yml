@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-codespaces:
+  get-codespaces-01:
     runs-on: ubuntu-latest
     steps:
       - name: Call GitHub API to list Codespaces
@@ -19,3 +19,20 @@ jobs:
           curl -s -H "Authorization: token $GH_TOKEN" \
                -H "Accept: application/vnd.github+json" \
                https://api.github.com/user/codespaces | jq
+
+
+  get-codespaces-02:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call GitHub API to list Codespaces
+      
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ORG_NAME: AITest-22
+          shell: bash
+
+        run: |
+          echo "Fetching Codespaces for authenticated user..."
+          curl -s -H "Authorization: token $GH_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               https://api.github.com/orgs/ORG_NAME/codespaces | jq
