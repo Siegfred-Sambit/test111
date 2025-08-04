@@ -20,7 +20,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Use gh CLI to list issues
-        run: gh codespace list --org ORGANIZATION
+        run: gh codespace list --org AITest-22
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
