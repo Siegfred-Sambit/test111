@@ -18,3 +18,8 @@ jobs:
         run: gh issue list
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use gh CLI to list issues
+        run: gh codespace list --org ORGANIZATION
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
