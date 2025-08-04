@@ -1,4 +1,4 @@
-name: Use GitHub CLI in Workflow
+name: AITest5
 
 on:
   workflow_dispatch:
