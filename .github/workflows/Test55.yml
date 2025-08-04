@@ -12,7 +12,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
           ORG: AITest-22
-          shell: bash
+#         shell: bash
 
         run: |
           echo "Fetching Codespaces for authenticated user...
