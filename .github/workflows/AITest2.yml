@@ -1,4 +1,4 @@
-name: Get Codespaces Info
+name: AITest2
 
 on:
   workflow_dispatch:
